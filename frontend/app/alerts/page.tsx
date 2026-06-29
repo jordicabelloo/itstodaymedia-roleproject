@@ -120,9 +120,9 @@ export default function AlertsPage() {
                           Claude Sonnet 4.6
                         </span>
                       </div>
-                      <div className="grid grid-cols-3 gap-3">
+                      <div className="grid grid-cols-3 gap-3 items-stretch">
                         {creative.variants.map((v, i) => (
-                          <div key={i} className="bg-[#141414] rounded-lg border border-[#232323] p-4 hover:border-[#3a3a3a] transition-colors">
+                          <div key={i} className="bg-[#141414] rounded-lg border border-[#232323] p-4 hover:border-[#3a3a3a] transition-colors flex flex-col min-h-[260px]">
                             <div className="flex items-center justify-between mb-3">
                               <span className="text-[10px] text-[#444]">Variant {i + 1}</span>
                               <span className={`text-[10px] px-2 py-0.5 rounded-full border capitalize ${HOOK_COLOR[v.hook_angle]}`}>
@@ -131,8 +131,8 @@ export default function AlertsPage() {
                             </div>
                             <p className="text-xs text-white font-medium mb-2 leading-relaxed">{v.headline}</p>
                             <p className="text-xs text-[#666] leading-relaxed mb-3">{v.body}</p>
-                            <p className="text-[11px] text-[#444] italic border-t border-[#232323] pt-3">{v.rationale}</p>
-                            <button className="mt-3 w-full py-1.5 rounded-md bg-white/[0.04] hover:bg-white/[0.07] border border-[#2a2a2a] text-xs text-[#888] hover:text-white transition-colors">
+                            <p className="text-[11px] text-[#444] italic border-t border-[#232323] pt-3 flex-1">{v.rationale}</p>
+                            <button className="mt-4 w-full py-2 rounded-md bg-white/[0.04] hover:bg-white/[0.07] border border-[#2a2a2a] text-xs text-[#888] hover:text-white transition-colors">
                               Copy to clipboard
                             </button>
                           </div>
