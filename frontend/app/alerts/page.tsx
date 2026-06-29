@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { CREATIVES } from "@/lib/mock-data";
 import HealthBadge from "@/components/HealthBadge";
 import ScoreRing from "@/components/ScoreRing";
@@ -22,9 +23,25 @@ const HOOK_COLOR: Record<string, string> = {
 };
 
 export default function AlertsPage() {
+  return <Suspense><AlertsInner /></Suspense>;
+}
+
+function AlertsInner() {
   const fatigued = CREATIVES.filter((c) => c.health_status !== "healthy");
-  const [expanded, setExpanded] = useState<string | null>(fatigued[0]?.id ?? null);
+  const searchParams = useSearchParams();
+  const [expanded, setExpanded] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
+
+  // Open the alert specified in ?open= on mount, else start closed
+  useEffect(() => {
+    const openId = searchParams.get("open");
+    if (openId && fatigued.find((c) => c.id === openId)) {
+      setExpanded(openId);
+      setTimeout(() => {
+        document.getElementById(`alert-${openId}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+    }
+  }, [searchParams]); // eslint-disable-line
 
   const copyToClipboard = useCallback((text: string, key: string) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -46,7 +63,7 @@ export default function AlertsPage() {
         {fatigued.map((creative) => {
           const isOpen = expanded === creative.id;
           return (
-            <div key={creative.id} className="bg-[#1c1c1c] border border-[#2a2a2a] rounded-xl overflow-hidden">
+            <div key={creative.id} id={`alert-${creative.id}`} className="bg-[#1c1c1c] border border-[#2a2a2a] rounded-xl overflow-hidden">
               {/* Header row */}
               <button
                 className="w-full flex items-center gap-4 px-5 py-4 hover:bg-white/[0.02] transition-colors text-left"

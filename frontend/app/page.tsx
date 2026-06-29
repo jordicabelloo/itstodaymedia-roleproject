@@ -110,7 +110,10 @@ export default function Dashboard() {
               <strong>{ACCOUNT_STATS.critical_count} creatives</strong> are in critical fatigue — estimated wasted spend: <strong>$680/day</strong>
             </span>
           </div>
-          <Link href="/alerts" className="text-xs text-red-400 hover:text-red-300 font-medium underline underline-offset-2">
+          <Link
+            href={`/alerts?open=${sorted.find((c) => c.health_status === "critical")?.id ?? ""}`}
+            className="text-xs text-red-400 hover:text-red-300 font-medium underline underline-offset-2"
+          >
             View replacements
           </Link>
         </div>
@@ -127,7 +130,9 @@ export default function Dashboard() {
           {sorted.map((creative) => (
             <Link
               key={creative.id}
-              href={`/creative/${creative.id}`}
+              href={creative.health_status !== "healthy"
+                ? `/alerts?open=${creative.id}`
+                : `/creative/${creative.id}`}
               className="flex items-center gap-5 px-5 py-4 hover:bg-white/[0.02] transition-colors group"
             >
               {/* Score ring */}
