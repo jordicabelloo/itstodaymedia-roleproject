@@ -9,10 +9,12 @@ import { ACCOUNT_STATS } from "@/lib/mock-data";
 const alertBadge = ACCOUNT_STATS.critical_count + ACCOUNT_STATS.warning_count;
 
 const NAV = [
-  { href: "/",          label: "Dashboard", icon: "grid_view" },
-  { href: "/alerts",    label: "Alerts",    icon: "bolt",      badge: alertBadge },
-  { href: "/campaigns", label: "Campaigns", icon: "bar_chart" },
-  { href: "/generate",  label: "Generate",  icon: "auto_awesome" },
+  { href: "/",             label: "Dashboard",    icon: "grid_view" },
+  { href: "/alerts",       label: "Alerts",       icon: "bolt",         badge: alertBadge },
+  { href: "/campaigns",    label: "Campaigns",    icon: "bar_chart" },
+  { href: "/generate",     label: "Generate",     icon: "auto_awesome" },
+  { href: "/agents",       label: "Agents",       icon: "smart_toy" },
+  { href: "/intelligence", label: "Intelligence", icon: "school" },
 ];
 
 function Icon({ name, className }: { name: string; className?: string }) {
