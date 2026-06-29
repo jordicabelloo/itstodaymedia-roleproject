@@ -28,9 +28,9 @@ export default function Dashboard() {
             <h1 className="text-xl font-bold text-white tracking-tight">Dashboard</h1>
             <span className="flex items-center gap-1.5 text-[11px] text-[#555] border border-[#2a2a2a] rounded-full px-2.5 py-1">
               <svg width="14" height="14" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style={{ display: "inline" }}>
-                <rect width="100" height="100" rx="10" fill="#253545"/>
-                <text x="46" y="66" textAnchor="middle" fontFamily="'Arial Black',Arial,sans-serif" fontSize="58" fontWeight="900" fill="#fff">T</text>
-                <circle cx="68" cy="76" r="6" fill="#fff"/>
+                <rect width="100" height="100" rx="8" fill="#3a4d68"/>
+                <text x="44" y="68" textAnchor="middle" fontFamily="'Playfair Display',Georgia,serif" fontSize="60" fontWeight="800" fill="#fff">T</text>
+                <circle cx="70" cy="74" r="5.5" fill="#fff"/>
               </svg>
               <span className="font-semibold text-[#888]">It's Today Media</span>
             </span>
