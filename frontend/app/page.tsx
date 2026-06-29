@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { CREATIVES, ACCOUNT_STATS } from "@/lib/mock-data";
 import HealthBadge from "@/components/HealthBadge";
 import ScoreRing from "@/components/ScoreRing";
@@ -27,11 +28,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-3 mb-1">
             <h1 className="text-xl font-bold text-white tracking-tight">Dashboard</h1>
             <span className="flex items-center gap-1.5 text-[11px] text-[#555] border border-[#2a2a2a] rounded-full px-2.5 py-1">
-              <svg width="14" height="14" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style={{ display: "inline" }}>
-                <rect width="100" height="100" rx="8" fill="#3a4d68"/>
-                <text x="44" y="68" textAnchor="middle" fontFamily="'Playfair Display',Georgia,serif" fontSize="60" fontWeight="800" fill="#fff">T</text>
-                <circle cx="70" cy="74" r="5.5" fill="#fff"/>
-              </svg>
+              <Image src="/itm-logo.png" alt="ITM" width={14} height={14} className="rounded-sm" />
               <span className="font-semibold text-[#888]">It's Today Media</span>
             </span>
           </div>

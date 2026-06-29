@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "AdPulse — Creative Intelligence for It's Today Media",
   description: "Detect ad fatigue before it kills your ROAS",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/itm-logo.png",
   },
 };
 

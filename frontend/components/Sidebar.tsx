@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import clsx from "clsx";
 
 const NAV = [
@@ -10,39 +11,14 @@ const NAV = [
   { href: "/campaigns", label: "Campaigns", icon: "◈" },
 ];
 
-function ItmLogo({ size = 32 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100" height="100" rx="8" fill="#3a4d68" />
-      <text
-        x="44" y="68"
-        textAnchor="middle"
-        fontFamily="'Playfair Display', Georgia, 'Times New Roman', serif"
-        fontSize="60"
-        fontWeight="800"
-        fill="#ffffff"
-      >
-        T
-      </text>
-      <circle cx="70" cy="74" r="5.5" fill="#ffffff" />
-    </svg>
-  );
-}
-
 export default function Sidebar() {
   const path = usePathname();
   return (
     <aside className="w-56 shrink-0 border-r border-[#2a2a2a] flex flex-col h-screen sticky top-0">
       {/* Brand */}
       <div className="px-4 py-4 border-b border-[#2a2a2a]">
-        <div className="flex items-center gap-2.5 mb-3">
-          <ItmLogo size={30} />
-          <div>
-            <p className="text-white font-bold text-[11px] tracking-widest uppercase leading-tight">It's Today</p>
-            <p className="text-[#4dd0c4] font-semibold text-[9px] tracking-widest uppercase">Media</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2 pl-0.5">
+        <div className="flex items-center gap-3 mb-3">
+          <Image src="/itm-logo.png" alt="It's Today Media" width={36} height={36} className="rounded-md" />
           <span className="text-white font-semibold text-sm tracking-tight">AdPulse</span>
           <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#4dd0c4]/10 text-[#4dd0c4] border border-[#4dd0c4]/20 font-bold tracking-wider">BETA</span>
         </div>
@@ -76,7 +52,7 @@ export default function Sidebar() {
       {/* Footer */}
       <div className="px-4 py-4 border-t border-[#2a2a2a]">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs text-white font-bold" style={{ background: "#2d3a4a" }}>
+          <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs text-white font-bold" style={{ background: "#3a4d68" }}>
             JC
           </div>
           <div>
