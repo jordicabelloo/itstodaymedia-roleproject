@@ -8,6 +8,12 @@ module.exports = {
         card: "#1c1c1c",
         border: "#2a2a2a",
         muted: "#555",
+        // shadcn/ui CSS variable tokens
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        primary:    { DEFAULT: "var(--primary)", foreground: "var(--primary-foreground)" },
+        input:      "var(--input)",
+        ring:       "var(--ring)",
       },
       fontFamily: {
         sans: ["'Varela Round'", "sans-serif"],

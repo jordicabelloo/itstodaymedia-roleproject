@@ -20,6 +20,15 @@
 @tailwind utilities;
 
 :root {
+  /* shadcn/ui CSS variables */
+  --background: #0f0f0f;
+  --foreground: #e8e8e8;
+  --primary: #818cf8;
+  --primary-foreground: #fff;
+  --input: #2a2a2a;
+  --ring: #818cf8;
+
+  /* AdPulse tokens */
   --bg: #0f0f0f;
   --surface: #141414;
   --card: #1c1c1c;
