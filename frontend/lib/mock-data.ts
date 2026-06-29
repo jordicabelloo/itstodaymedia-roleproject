@@ -117,6 +117,26 @@ export const CREATIVES: Creative[] = [
       { date: "Jun 21", ctr: 0.022, cpm: 12.5, roas: 3.0, frequency: 2.5, spend: 350 },
       { date: "Jun 22", ctr: 0.021, cpm: 13.1, roas: 2.9, frequency: 2.7, spend: 370 },
     ],
+    variants: [
+      {
+        headline: "Results in 14 days — or you don't pay",
+        body: "We're so confident, we put our money on it. No fine print, no hoops. Just results.",
+        hook_angle: "benefit",
+        rationale: "Reframes the guarantee as the hero instead of a footnote — cuts through offer fatigue on warm audiences.",
+      },
+      {
+        headline: "How 5,000 businesses grew without risking a cent",
+        body: "Free trial. No credit card. Cancel in one click. The only risk is not trying.",
+        hook_angle: "social_proof",
+        rationale: "Volume social proof + zero-risk framing addresses the hesitation pattern typical of 2.7 frequency audiences.",
+      },
+      {
+        headline: "You've seen this ad before. Here's why you haven't clicked yet",
+        body: "Most people wait until the problem gets worse. Don't be most people. 14-day free trial, no strings.",
+        hook_angle: "curiosity",
+        rationale: "Pattern interrupt — acknowledges repetition directly, which disarms banner blindness and re-engages.",
+      },
+    ],
   },
   {
     id: "ad_003",
@@ -192,6 +212,26 @@ export const CREATIVES: Creative[] = [
       { date: "Jun 20", ctr: 0.009, cpm: 8.3, roas: 1.7, frequency: 3.2, spend: 135 },
       { date: "Jun 21", ctr: 0.007, cpm: 8.1, roas: 1.5, frequency: 3.5, spend: 138 },
       { date: "Jun 22", ctr: 0.006, cpm: 8.4, roas: 1.4, frequency: 3.8, spend: 134 },
+    ],
+    variants: [
+      {
+        headline: "You visited. You left. Here's what changed.",
+        body: "New pricing, faster onboarding, and a free trial that actually gives you time to decide. Come back.",
+        hook_angle: "curiosity",
+        rationale: "Acknowledges the prior visit without being creepy — positions the return as their idea, not a chase.",
+      },
+      {
+        headline: "Still thinking about it? Your free trial expires soon.",
+        body: "Thousands of businesses started last month. Your spot is still open — but not for long.",
+        hook_angle: "urgency",
+        rationale: "Soft deadline + social proof pressure works better than hard scarcity for high-frequency retargeting audiences.",
+      },
+      {
+        headline: "The businesses that didn't wait are already ahead",
+        body: "See exactly what they're doing differently. Free trial, no credit card. Start in under 2 minutes.",
+        hook_angle: "social_proof",
+        rationale: "Competitive FOMO reframe — shifts from product features to outcome gap, which re-activates decision-mode thinking.",
+      },
     ],
   },
 ];
