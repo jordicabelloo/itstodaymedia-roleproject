@@ -18,8 +18,8 @@ interface VideoCard {
   tag: string;
   mediaType: MediaType;
   videoUrl?: string;
-  imageUrl?: string;
-  prompt?: string;
+  imageUrls: string[];   // multiple reference images for AI generation
+  prompt: string;        // prompt sent to Higgsfield / Kling / etc.
   status: CardStatus;
 }
 
@@ -33,34 +33,38 @@ type IntegrationTool = "Higgsfield" | "Kling" | "IStudio" | "Runway";
 
 // ── Per-project seed cards ─────────────────────────────────────────────────
 
+function makeCard(fields: Omit<VideoCard, "imageUrls" | "prompt"> & { script: string }): VideoCard {
+  return { ...fields, imageUrls: [], prompt: fields.script };
+}
+
 const SEED: Record<string, VideoCard[]> = {
   p1: [
-    { id:"p1-h1", col:"hook", label:"Stop — don't scroll",     duration:"3s",  tag:"pattern interrupt", mediaType:"ai-generated", script:"\"Wait — if you're over 40 and tired of diets that don't work, this is for you.\"", status:"idle" },
-    { id:"p1-h2", col:"hook", label:"POV: still no results",   duration:"3s",  tag:"problem agitation",  mediaType:"prerecorded",  script:"POV: You've tried everything and you're still in the same place.", status:"ready" },
-    { id:"p1-h3", col:"hook", label:"I lost 22lbs in 60 days", duration:"3s",  tag:"social proof",       mediaType:"prerecorded",  script:"\"I lost 22lbs in 60 days without giving up the foods I love.\"", status:"ready" },
-    { id:"p1-b1", col:"body", label:"Product demo + stat",     duration:"15s", tag:"demonstration",      mediaType:"prerecorded",  script:"Show product, explain the mechanism, hit the key stat: '94% of users saw results in 30 days.'", status:"ready" },
-    { id:"p1-b2", col:"body", label:"Testimonial montage",     duration:"15s", tag:"social proof",       mediaType:"prerecorded",  script:"3 quick 4-second testimonial cuts. Real people, real results.", status:"ready" },
-    { id:"p1-b3", col:"body", label:"Problem → solution",      duration:"15s", tag:"before/after",       mediaType:"ai-generated", script:"Agitate the problem for 7s, pivot to solution, show the product as the bridge.", status:"idle" },
-    { id:"p1-c1", col:"cta",  label:"Free trial — link in bio",duration:"5s",  tag:"low friction",       mediaType:"prerecorded",  script:"\"Claim your free 14-day trial — link in bio. Takes 30 seconds.\"", status:"ready" },
-    { id:"p1-c2", col:"cta",  label:"Limited spots",           duration:"5s",  tag:"urgency",            mediaType:"prerecorded",  script:"\"We're only taking 50 more people this week.\"", status:"ready" },
-    { id:"p1-c3", col:"cta",  label:"Quiz funnel",             duration:"5s",  tag:"engagement",         mediaType:"ai-generated", script:"\"Take the 60-second quiz to see if this works for you.\"", status:"idle" },
+    makeCard({ id:"p1-h1", col:"hook", label:"Stop — don't scroll",     duration:"3s",  tag:"pattern interrupt", mediaType:"ai-generated", script:"Woman (35-45) looks directly into camera, pauses mid-scroll, raises an eyebrow. Handheld, natural light, authentic bedroom setting. Subtitle fades in at 1.5s.", status:"idle" }),
+    makeCard({ id:"p1-h2", col:"hook", label:"POV: still no results",   duration:"3s",  tag:"problem agitation",  mediaType:"prerecorded",  script:"POV: You've tried everything and you're still in the same place.", status:"ready" }),
+    makeCard({ id:"p1-h3", col:"hook", label:"I lost 22lbs in 60 days", duration:"3s",  tag:"social proof",       mediaType:"prerecorded",  script:"\"I lost 22lbs in 60 days without giving up the foods I love.\"", status:"ready" }),
+    makeCard({ id:"p1-b1", col:"body", label:"Product demo + stat",     duration:"15s", tag:"demonstration",      mediaType:"prerecorded",  script:"Show product, explain the mechanism, hit the key stat: '94% of users saw results in 30 days.'", status:"ready" }),
+    makeCard({ id:"p1-b2", col:"body", label:"Testimonial montage",     duration:"15s", tag:"social proof",       mediaType:"prerecorded",  script:"3 quick 4-second testimonial cuts. Real people, real results.", status:"ready" }),
+    makeCard({ id:"p1-b3", col:"body", label:"Problem → solution",      duration:"15s", tag:"before/after",       mediaType:"ai-generated", script:"Agitate the problem for 7s: show the frustrated routine. Hard cut to solution: product in hand, lighter mood, warm light. No text needed — emotion carries it.", status:"idle" }),
+    makeCard({ id:"p1-c1", col:"cta",  label:"Free trial — link in bio",duration:"5s",  tag:"low friction",       mediaType:"prerecorded",  script:"\"Claim your free 14-day trial — link in bio. Takes 30 seconds.\"", status:"ready" }),
+    makeCard({ id:"p1-c2", col:"cta",  label:"Limited spots",           duration:"5s",  tag:"urgency",            mediaType:"prerecorded",  script:"\"We're only taking 50 more people this week.\"", status:"ready" }),
+    makeCard({ id:"p1-c3", col:"cta",  label:"Quiz funnel",             duration:"5s",  tag:"engagement",         mediaType:"ai-generated", script:"Bright, energetic cut: phone in hand, quiz screen visible, smile. Text overlay: 'Find out in 60 seconds →'. Quick zoom out.", status:"idle" }),
   ],
   p2: [
-    { id:"p2-h1", col:"hook", label:"Your money is losing value",  duration:"3s",  tag:"problem agitation", mediaType:"ai-generated", script:"\"While you sleep, inflation is eating your savings. Here's what banks won't tell you.\"", status:"idle" },
-    { id:"p2-h2", col:"hook", label:"$0 to $10k in 6 months",     duration:"3s",  tag:"social proof",       mediaType:"prerecorded",  script:"\"I started with $0 and hit $10k in passive income in 6 months. Here's how.\"", status:"ready" },
-    { id:"p2-h3", col:"hook", label:"Most people retire broke",    duration:"3s",  tag:"fear",               mediaType:"ai-generated", script:"\"90% of people will retire with less than $100k saved. Are you on track?\"", status:"idle" },
-    { id:"p2-b1", col:"body", label:"Platform walkthrough",       duration:"15s", tag:"demonstration",       mediaType:"prerecorded",  script:"Screen recording of the platform: show deposits, returns, dashboard. Keep it fast.", status:"ready" },
-    { id:"p2-b2", col:"body", label:"Expert credibility build",   duration:"15s", tag:"authority",           mediaType:"ai-generated", script:"Talking head: credentials, track record, why this beats traditional investing.", status:"idle" },
-    { id:"p2-c1", col:"cta",  label:"Get the free guide",        duration:"5s",  tag:"low friction",        mediaType:"prerecorded",  script:"\"Download the free wealth playbook — link below. No credit card.\"", status:"ready" },
-    { id:"p2-c2", col:"cta",  label:"Book a strategy call",      duration:"5s",  tag:"high intent",         mediaType:"ai-generated", script:"\"Book your free 20-min strategy call. Only 10 spots left this week.\"", status:"idle" },
+    makeCard({ id:"p2-h1", col:"hook", label:"Your money is losing value",  duration:"3s",  tag:"problem agitation", mediaType:"ai-generated", script:"Cinematic close-up of a wallet, coins spilling out slowly. Dark moody grade. Text overlay fades in: 'Inflation ate 18% of your savings last year.' No voice — visual only.", status:"idle" }),
+    makeCard({ id:"p2-h2", col:"hook", label:"$0 to $10k in 6 months",     duration:"3s",  tag:"social proof",       mediaType:"prerecorded",  script:"\"I started with $0 and hit $10k in passive income in 6 months. Here's how.\"", status:"ready" }),
+    makeCard({ id:"p2-h3", col:"hook", label:"Most people retire broke",    duration:"3s",  tag:"fear",               mediaType:"ai-generated", script:"Graphic: bold text animation on dark background. '90% retire with under $100k.' Pause. Then: 'Which side are you on?' Fast cut. No music — silence for impact.", status:"idle" }),
+    makeCard({ id:"p2-b1", col:"body", label:"Platform walkthrough",       duration:"15s", tag:"demonstration",       mediaType:"prerecorded",  script:"Screen recording of the platform: show deposits, returns, dashboard. Keep it fast.", status:"ready" }),
+    makeCard({ id:"p2-b2", col:"body", label:"Expert credibility build",   duration:"15s", tag:"authority",           mediaType:"ai-generated", script:"Talking head, mid-shot, clean minimal office background. Confident but relaxed. Show credentials lower-third at 3s. Cut to quick b-roll of charts then back to face for CTA setup.", status:"idle" }),
+    makeCard({ id:"p2-c1", col:"cta",  label:"Get the free guide",        duration:"5s",  tag:"low friction",        mediaType:"prerecorded",  script:"\"Download the free wealth playbook — link below. No credit card.\"", status:"ready" }),
+    makeCard({ id:"p2-c2", col:"cta",  label:"Book a strategy call",      duration:"5s",  tag:"high intent",         mediaType:"ai-generated", script:"Calendar UI visible on screen, cursor moving to book a slot. Voice over: 'Only 10 spots left this week.' Urgency bar filling up on screen. Clean, fast.", status:"idle" }),
   ],
   p3: [
-    { id:"p3-h1", col:"hook", label:"Still doing it manually?",   duration:"3s",  tag:"problem agitation", mediaType:"ai-generated", script:"\"If your team is still doing this manually in 2026, you're burning cash every day.\"", status:"idle" },
-    { id:"p3-h2", col:"hook", label:"We 10x'd output in 30 days", duration:"3s",  tag:"social proof",       mediaType:"prerecorded",  script:"\"We cut our ops team's workload in half in the first month. Here's the tool.\"", status:"ready" },
-    { id:"p3-b1", col:"body", label:"Product demo — key feature", duration:"15s", tag:"demonstration",       mediaType:"prerecorded",  script:"Screen capture: show the single most impressive feature. No fluff.", status:"ready" },
-    { id:"p3-b2", col:"body", label:"ROI breakdown",              duration:"15s", tag:"numbers",             mediaType:"ai-generated", script:"Talking head or text animation: $X saved per month, time reclaimed, team capacity.", status:"idle" },
-    { id:"p3-c1", col:"cta",  label:"Start free — no card",      duration:"5s",  tag:"low friction",        mediaType:"prerecorded",  script:"\"Start free today — no credit card required. Takes 2 minutes to set up.\"", status:"ready" },
-    { id:"p3-c2", col:"cta",  label:"See it live — book demo",   duration:"5s",  tag:"high intent",         mediaType:"ai-generated", script:"\"See it live — book a 15-min demo. We'll show you exactly how it works for your team.\"", status:"idle" },
+    makeCard({ id:"p3-h1", col:"hook", label:"Still doing it manually?",   duration:"3s",  tag:"problem agitation", mediaType:"ai-generated", script:"Person at desk buried in spreadsheets, exhausted look, coffee going cold. Slow push in. Text overlay at 2s: 'There's a better way.' Cut to black.", status:"idle" }),
+    makeCard({ id:"p3-h2", col:"hook", label:"We 10x'd output in 30 days", duration:"3s",  tag:"social proof",       mediaType:"prerecorded",  script:"\"We cut our ops team's workload in half in the first month. Here's the tool.\"", status:"ready" }),
+    makeCard({ id:"p3-b1", col:"body", label:"Product demo — key feature", duration:"15s", tag:"demonstration",       mediaType:"prerecorded",  script:"Screen capture: show the single most impressive feature. No fluff.", status:"ready" }),
+    makeCard({ id:"p3-b2", col:"body", label:"ROI breakdown",              duration:"15s", tag:"numbers",             mediaType:"ai-generated", script:"Text animation: numbers counting up ($4,200 saved / month). Split screen: before (chaos) vs after (clean dashboard). Upbeat but professional music. End on the product logo.", status:"idle" }),
+    makeCard({ id:"p3-c1", col:"cta",  label:"Start free — no card",      duration:"5s",  tag:"low friction",        mediaType:"prerecorded",  script:"\"Start free today — no credit card required. Takes 2 minutes to set up.\"", status:"ready" }),
+    makeCard({ id:"p3-c2", col:"cta",  label:"See it live — book demo",   duration:"5s",  tag:"high intent",         mediaType:"ai-generated", script:"Screen recording: calendar widget, easy booking flow. Text: 'See it live in 15 min.' Cursor clicks 'Book now'. Confirmation screen. Clean and fast.", status:"idle" }),
   ],
 };
 
@@ -122,7 +126,7 @@ function useConnectorLines(
 
 function NewCardForm({ col, onAdd, onCancel }: {
   col: ColType;
-  onAdd: (card: Omit<VideoCard,"id"|"status"|"videoUrl"|"imageUrl">) => void;
+  onAdd: (card: Omit<VideoCard,"id"|"status"|"videoUrl"|"imageUrls">) => void;
   onCancel: () => void;
 }) {
   const cfg = COL_CFG[col];
@@ -195,23 +199,29 @@ function NewCardForm({ col, onAdd, onCancel }: {
 
 // ── Creative card ───────────────────────────────────────────────────────────
 
-function CreativeCard({ card, selected, onSelect, onVideoUpload, onImageUpload, onPromptChange, onGenerate, cardRef }: {
+function CreativeCard({ card, selected, onSelect, onVideoUpload, onAddImage, onRemoveImage, onPromptChange, onGenerate, cardRef }: {
   card: VideoCard;
   selected: boolean;
   onSelect: () => void;
   onVideoUpload: (url: string) => void;
-  onImageUpload: (url: string) => void;
+  onAddImage: (url: string) => void;
+  onRemoveImage: (idx: number) => void;
   onPromptChange: (v: string) => void;
   onGenerate: () => void;
   cardRef?: React.Ref<HTMLDivElement>;
 }) {
-  const cfg = COL_CFG[card.col];
+  const cfg       = COL_CFG[card.col];
   const videoInput = useRef<HTMLInputElement>(null);
   const imageInput = useRef<HTMLInputElement>(null);
 
-  function handleFile(e: ChangeEvent<HTMLInputElement>, cb: (url: string) => void) {
+  function handleVideo(e: ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
-    if (f) cb(URL.createObjectURL(f));
+    if (f) onVideoUpload(URL.createObjectURL(f));
+  }
+  function handleImage(e: ChangeEvent<HTMLInputElement>) {
+    if (!e.target.files) return;
+    Array.from(e.target.files).forEach((f) => onAddImage(URL.createObjectURL(f)));
+    e.target.value = "";
   }
 
   return (
@@ -225,6 +235,7 @@ function CreativeCard({ card, selected, onSelect, onVideoUpload, onImageUpload, 
           : "bg-[#141414] border-[#232323] hover:border-[#2e2e2e]"
       )}
     >
+      {/* Header row */}
       <div className="flex items-center justify-between px-3 pt-3 mb-2">
         <span className={clsx("text-[10px] px-2 py-0.5 rounded-full font-semibold border",
           card.mediaType === "prerecorded"
@@ -236,68 +247,98 @@ function CreativeCard({ card, selected, onSelect, onVideoUpload, onImageUpload, 
         <span className="text-[10px] text-[#333]">{card.duration}</span>
       </div>
 
-      <div className="mx-3 mb-2 rounded-lg overflow-hidden bg-[#0f0f0f] border border-[#1e1e1e]" style={{height:76}}>
-        {card.mediaType === "prerecorded" ? (
-          card.videoUrl ? (
+      {/* ── Pre-recorded: single video upload ── */}
+      {card.mediaType === "prerecorded" && (
+        <div className="mx-3 mb-3 rounded-lg overflow-hidden bg-[#0f0f0f] border border-[#1e1e1e]" style={{height:72}}>
+          {card.videoUrl ? (
             <video src={card.videoUrl} className="w-full h-full object-cover" muted playsInline />
           ) : (
-            <button onClick={(e) => { e.stopPropagation(); videoInput.current?.click(); }}
-              className="w-full h-full flex flex-col items-center justify-center gap-1 hover:bg-white/[0.02] transition-colors">
+            <button
+              onClick={(e) => { e.stopPropagation(); videoInput.current?.click(); }}
+              className="w-full h-full flex flex-col items-center justify-center gap-1 hover:bg-white/[0.02] transition-colors"
+            >
               <span className="material-symbols-outlined text-[20px] text-[#2a2a2a]">upload_file</span>
               <span className="text-[10px] text-[#333]">Upload video</span>
             </button>
-          )
-        ) : (
-          <div className="w-full h-full flex">
-            <div className="w-1/2 h-full border-r border-[#1e1e1e] flex items-center justify-center">
-              {card.imageUrl ? (
-                <img src={card.imageUrl} alt="" className="w-full h-full object-cover" />
-              ) : (
-                <button onClick={(e) => { e.stopPropagation(); imageInput.current?.click(); }}
-                  className="w-full h-full flex flex-col items-center justify-center gap-0.5 hover:bg-white/[0.02] transition-colors">
-                  <span className="material-symbols-outlined text-[16px] text-[#2a2a2a]">add_photo_alternate</span>
-                  <span className="text-[9px] text-[#333]">Ref image</span>
-                </button>
-              )}
-            </div>
-            <div className="w-1/2 h-full flex flex-col items-center justify-center gap-1">
-              {card.status === "generating" ? (
-                <>
-                  <span className="w-3.5 h-3.5 border border-[#333] border-t-indigo-400 rounded-full animate-spin" />
-                  <span className="text-[9px] text-indigo-400">Generating...</span>
-                </>
-              ) : (
-                <button onClick={(e) => { e.stopPropagation(); onGenerate(); }}
-                  className="flex flex-col items-center gap-0.5 hover:opacity-80">
-                  <span className="material-symbols-outlined text-[16px] text-[#2a2a2a]">auto_awesome</span>
-                  <span className="text-[9px] text-[#333]">Generate</span>
-                </button>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
 
+      {/* ── AI Generated: image strip + prompt + generate ── */}
+      {card.mediaType === "ai-generated" && (
+        <div className="mx-3 mb-2" onClick={(e) => e.stopPropagation()}>
+          {/* Reference images strip */}
+          <div className="flex gap-1.5 mb-2 overflow-x-auto pb-1" style={{scrollbarWidth:"none"}}>
+            {card.imageUrls.map((url, idx) => (
+              <div key={idx} className="relative shrink-0 w-16 h-16 rounded-lg overflow-hidden border border-[#1e1e1e] group">
+                <img src={url} alt="" className="w-full h-full object-cover" />
+                <button
+                  onClick={() => onRemoveImage(idx)}
+                  className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <span className="material-symbols-outlined text-[14px] text-white">close</span>
+                </button>
+              </div>
+            ))}
+            {/* Add image button */}
+            <button
+              onClick={() => imageInput.current?.click()}
+              className="shrink-0 w-16 h-16 rounded-lg border border-dashed border-[#2a2a2a] hover:border-[#3a3a3a] bg-[#0f0f0f] flex flex-col items-center justify-center gap-0.5 transition-colors"
+            >
+              <span className="material-symbols-outlined text-[16px] text-[#2a2a2a]">add_photo_alternate</span>
+              <span className="text-[9px] text-[#333]">
+                {card.imageUrls.length === 0 ? "Add ref" : "Add more"}
+              </span>
+            </button>
+          </div>
+
+          {/* Prompt textarea */}
+          <textarea
+            value={card.prompt}
+            onChange={(e) => onPromptChange(e.target.value)}
+            onClick={(e) => e.stopPropagation()}
+            rows={3}
+            placeholder="Describe the scene — lighting, motion, camera angle, emotion. This goes directly to Higgsfield / Kling."
+            className="w-full bg-[#0f0f0f] border border-[#1e1e1e] rounded-lg px-2.5 py-2 text-[11px] text-[#aaa] placeholder-[#2e2e2e] focus:outline-none focus:border-[#2a2a2a] resize-none font-mono leading-relaxed mb-2"
+          />
+
+          {/* Generate button */}
+          <button
+            onClick={onGenerate}
+            disabled={card.status === "generating"}
+            className={clsx(
+              "w-full py-2 rounded-lg border text-[11px] font-semibold transition-all flex items-center justify-center gap-1.5",
+              card.status === "generating"
+                ? "bg-indigo-500/10 border-indigo-500/20 text-indigo-400 cursor-not-allowed"
+                : "bg-[#1a1a1a] border-[#2a2a2a] text-[#888] hover:bg-indigo-500/10 hover:border-indigo-500/20 hover:text-indigo-400"
+            )}
+          >
+            {card.status === "generating" ? (
+              <>
+                <span className="w-3 h-3 border border-indigo-400/40 border-t-indigo-400 rounded-full animate-spin" />
+                Generating with Higgsfield...
+              </>
+            ) : (
+              <>
+                <span className="material-symbols-outlined text-[14px]">auto_awesome</span>
+                Generate video
+              </>
+            )}
+          </button>
+        </div>
+      )}
+
+      {/* Label + tag */}
       <div className="px-3 pb-3">
         <p className={clsx("text-xs font-semibold mb-1", selected ? cfg.color : "text-white")}>{card.label}</p>
-        {card.mediaType === "ai-generated" ? (
-          <textarea
-            value={card.prompt ?? card.script}
-            onChange={(e) => { e.stopPropagation(); onPromptChange(e.target.value); }}
-            onClick={(e) => e.stopPropagation()}
-            rows={2}
-            className="w-full bg-[#0f0f0f] border border-[#1e1e1e] rounded-lg px-2 py-1.5 text-[11px] text-[#aaa] placeholder-[#333] focus:outline-none focus:border-[#2a2a2a] resize-none font-mono leading-relaxed"
-          />
-        ) : (
-          <p className="text-[11px] text-[#555] leading-relaxed line-clamp-2">{card.script}</p>
+        {card.mediaType === "prerecorded" && (
+          <p className="text-[11px] text-[#555] leading-relaxed line-clamp-2 mb-1.5">{card.script}</p>
         )}
-        <span className="inline-block mt-1.5 text-[10px] px-1.5 py-0.5 rounded bg-[#1c1c1c] text-[#444]">
-          {card.tag}
-        </span>
+        <span className="inline-block text-[10px] px-1.5 py-0.5 rounded bg-[#1c1c1c] text-[#444]">{card.tag}</span>
       </div>
 
-      <input ref={videoInput} type="file" accept="video/*" className="hidden" onChange={(e) => handleFile(e, onVideoUpload)} />
-      <input ref={imageInput} type="file" accept="image/*" className="hidden" onChange={(e) => handleFile(e, onImageUpload)} />
+      <input ref={videoInput} type="file" accept="video/*"  className="hidden" onChange={handleVideo} />
+      <input ref={imageInput} type="file" accept="image/*" multiple className="hidden" onChange={handleImage} />
     </div>
   );
 }
@@ -342,11 +383,29 @@ export default function VideoPage() {
     }));
   }
 
-  function addCard(col: ColType, data: Omit<VideoCard,"id"|"status"|"videoUrl"|"imageUrl">) {
+  function addCard(col: ColType, data: Omit<VideoCard,"id"|"status"|"videoUrl"|"imageUrls">) {
     const id = `${projectId}-${col}-${Date.now()}`;
-    const card: VideoCard = { ...data, id, status: "idle" };
+    const card: VideoCard = { ...data, id, status: "idle", imageUrls: [] };
     setAllCards((prev) => ({ ...prev, [projectId]: [...(prev[projectId] ?? []), card] }));
     setAddingCol(null);
+  }
+
+  function addImage(pid: string, id: string, url: string) {
+    setAllCards((prev) => ({
+      ...prev,
+      [pid]: (prev[pid] ?? []).map((c) =>
+        c.id === id ? { ...c, imageUrls: [...c.imageUrls, url] } : c
+      ),
+    }));
+  }
+
+  function removeImage(pid: string, id: string, idx: number) {
+    setAllCards((prev) => ({
+      ...prev,
+      [pid]: (prev[pid] ?? []).map((c) =>
+        c.id === id ? { ...c, imageUrls: c.imageUrls.filter((_, i) => i !== idx) } : c
+      ),
+    }));
   }
 
   function selectCard(col: ColType, id: string, el: HTMLDivElement | null) {
@@ -442,12 +501,12 @@ export default function VideoPage() {
                       card={card}
                       selected={isSelected}
                       onSelect={() => {
-                        // capture DOM ref via callback ref pattern
                         const el = document.querySelector(`[data-cardid="${card.id}"]`) as HTMLDivElement | null;
                         selectCard(col, card.id, el);
                       }}
                       onVideoUpload={(url) => updateCard(projectId, card.id, { videoUrl: url, status: "ready" })}
-                      onImageUpload={(url) => updateCard(projectId, card.id, { imageUrl: url })}
+                      onAddImage={(url)    => addImage(projectId, card.id, url)}
+                      onRemoveImage={(idx) => removeImage(projectId, card.id, idx)}
                       onPromptChange={(v)  => updateCard(projectId, card.id, { prompt: v })}
                       onGenerate={() => {
                         updateCard(projectId, card.id, { status: "generating" });
