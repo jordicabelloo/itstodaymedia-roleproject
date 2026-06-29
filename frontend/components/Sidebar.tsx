@@ -13,18 +13,18 @@ const NAV = [
 function ItmLogo({ size = 32 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100" height="100" rx="10" fill="#2d3a4a" />
+      <rect width="100" height="100" rx="10" fill="#253545" />
       <text
-        x="50" y="60"
+        x="46" y="66"
         textAnchor="middle"
-        fontFamily="Georgia, 'Times New Roman', serif"
-        fontSize="52"
-        fontWeight="700"
+        fontFamily="'Arial Black', Arial, sans-serif"
+        fontSize="58"
+        fontWeight="900"
         fill="#ffffff"
       >
         T
       </text>
-      <circle cx="67" cy="73" r="5" fill="#ffffff" />
+      <circle cx="68" cy="76" r="6" fill="#ffffff" />
     </svg>
   );
 }

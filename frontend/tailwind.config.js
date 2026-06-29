@@ -10,7 +10,7 @@ module.exports = {
         muted: "#555",
       },
       fontFamily: {
-        sans: ["'Raleway'", "sans-serif"],
+        sans: ["'Varela Round'", "sans-serif"],
         mono: ["'JetBrains Mono'", "monospace"],
       },
     },
