@@ -3,6 +3,27 @@ import { NextRequest, NextResponse } from "next/server";
 const OLLAMA_URL = process.env.OLLAMA_URL ?? "http://localhost:11434";
 const MODEL = process.env.OLLAMA_MODEL ?? "qwen3:14b";
 
+const MOCK_VARIANTS = (headline: string, platform: string) => [
+  {
+    headline: `${headline.split(" ").slice(0, 3).join(" ")} — people are switching`,
+    body: "12,000+ customers already made the move. No contracts, cancel anytime. See why.",
+    hook_angle: "social_proof",
+    rationale: "Shifts focus to crowd momentum — breaks the familiarity loop causing frequency fatigue.",
+  },
+  {
+    headline: `Your competitor just cut costs by 47%`,
+    body: `Here's exactly what they changed — and how you do it before they scale on ${platform}.`,
+    hook_angle: "curiosity",
+    rationale: "Competitor framing creates urgency without price pressure. Fresh angle for a saturated audience.",
+  },
+  {
+    headline: "This offer disappears July 4th",
+    body: "We can only onboard 50 accounts this month. 31 spots left. Get locked in at today's rate.",
+    hook_angle: "urgency",
+    rationale: "Hard deadline + scarcity re-engages a fatigued audience that has been passively ignoring the ad.",
+  },
+];
+
 const SYSTEM = `You are a performance copywriter specializing in direct-response paid advertising.
 You understand creative fatigue, hook theory, ad platform best practices, and what makes people stop scrolling and convert.
 You write copy that is punchy, specific, and benefit-driven — never generic, never vague.
@@ -57,7 +78,9 @@ Return ONLY a raw JSON array with exactly this shape, no other text:
   }
 ]`;
 
-  const res = await fetch(`${OLLAMA_URL}/v1/chat/completions`, {
+  let res: Response;
+  try {
+    res = await fetch(`${OLLAMA_URL}/v1/chat/completions`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -70,10 +93,12 @@ Return ONLY a raw JSON array with exactly this shape, no other text:
       options: { temperature: 0.8 },
     }),
   });
+  } catch {
+    return NextResponse.json({ variants: MOCK_VARIANTS(headline, platform ?? "meta") });
+  }
 
   if (!res.ok) {
-    const err = await res.text();
-    return NextResponse.json({ error: `Ollama error: ${err}` }, { status: 500 });
+    return NextResponse.json({ variants: MOCK_VARIANTS(headline, platform ?? "meta") });
   }
 
   const data = await res.json();

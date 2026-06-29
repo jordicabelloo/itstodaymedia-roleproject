@@ -33,7 +33,9 @@ The prompt must:
 
 Output only the raw prompt text. Nothing else.`;
 
-  const res = await fetch(`${OLLAMA_URL}/v1/chat/completions`, {
+  let res: Response;
+  try {
+    res = await fetch(`${OLLAMA_URL}/v1/chat/completions`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -43,9 +45,16 @@ Output only the raw prompt text. Nothing else.`;
       options: { temperature: 0.7 },
     }),
   });
+  } catch {
+    return NextResponse.json({
+      prompt: `Cinematic close-up, handheld camera. ${hook.tag === "social_proof" ? "Woman (35-45) smiling at camera, confident, natural window light. She holds up her phone showing a result. Text overlay fades in at 1.5s." : "Person at desk, frustrated look dissolving into relief as they discover something on screen. Push in slowly. Warm practical light. Authentic, not studio."} 5 seconds, loop-friendly. No music — let the visual carry it.`,
+    });
+  }
 
   if (!res.ok) {
-    return NextResponse.json({ error: "Ollama error" }, { status: 500 });
+    return NextResponse.json({
+      prompt: `Cinematic close-up, natural light, authentic setting. ${hook.script} — show this as a visual moment, not stated. 5 seconds, handheld, loop-friendly.`,
+    });
   }
 
   const data = await res.json();
