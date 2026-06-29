@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import clsx from "clsx";
+import { Switch } from "@/components/ui/switch";
 
 type AgentStatus = "active" | "idle" | "scheduled" | "beta";
 
@@ -270,19 +271,11 @@ export default function AgentsPage() {
 
                 <div className="flex items-center gap-3 shrink-0">
                   <StatusBadge status={agent.status} />
-                  {/* Toggle */}
-                  <button
-                    onClick={() => setEnabled((p) => ({ ...p, [agent.id]: !p[agent.id] }))}
-                    className={clsx(
-                      "w-9 h-5 rounded-full transition-colors relative shrink-0",
-                      isEnabled ? "bg-green-500" : "bg-[#2a2a2a]"
-                    )}
-                  >
-                    <span className={clsx(
-                      "absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform",
-                      isEnabled ? "translate-x-4" : "translate-x-0.5"
-                    )} />
-                  </button>
+                  <Switch
+                    checked={isEnabled}
+                    onCheckedChange={(v) => setEnabled((p) => ({ ...p, [agent.id]: v }))}
+                    className="data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-[#2a2a2a] shrink-0"
+                  />
                   <button onClick={() => setExpanded(isOpen ? null : agent.id)}>
                     <span className="material-symbols-outlined text-[20px] text-[#444] hover:text-[#888] transition-colors">
                       {isOpen ? "expand_less" : "expand_more"}
