@@ -13,7 +13,7 @@ const NAV = [
   { href: "/alerts",       label: "Alerts",       icon: "bolt",         badge: alertBadge },
   { href: "/campaigns",    label: "Campaigns",    icon: "bar_chart" },
   { href: "/generate",     label: "Generate",     icon: "auto_awesome" },
-  { href: "/video",        label: "Video",        icon: "movie" },
+  { href: "/video",        label: "Creative Lab",  icon: "movie" },
   { href: "/agents",       label: "Agents",       icon: "smart_toy" },
   { href: "/intelligence", label: "Intelligence", icon: "school" },
 ];
