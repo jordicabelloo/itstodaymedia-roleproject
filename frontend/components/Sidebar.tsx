@@ -4,10 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import clsx from "clsx";
+import { ACCOUNT_STATS } from "@/lib/mock-data";
+
+const alertBadge = ACCOUNT_STATS.critical_count + ACCOUNT_STATS.warning_count;
 
 const NAV = [
   { href: "/",          label: "Dashboard", icon: "grid_view" },
-  { href: "/alerts",    label: "Alerts",    icon: "bolt",      badge: 2 },
+  { href: "/alerts",    label: "Alerts",    icon: "bolt",      badge: alertBadge },
   { href: "/campaigns", label: "Campaigns", icon: "bar_chart" },
 ];
 

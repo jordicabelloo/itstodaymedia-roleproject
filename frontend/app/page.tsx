@@ -11,7 +11,6 @@ const statCards = [
   { label: "Warning Ads",  value: String(ACCOUNT_STATS.warning_count),                sub: "approaching fatigue", accent: "text-amber-400" },
 ];
 
-const PLATFORM_ICON: Record<string, string> = { meta: "f", google: "G" };
 const PLATFORM_COLOR: Record<string, string> = {
   meta: "bg-blue-500/10 text-blue-400",
   google: "bg-red-500/10 text-red-400",

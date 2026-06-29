@@ -17,8 +17,6 @@ export default async function CreativePage({ params }: { params: Promise<{ id: s
   const creative = CREATIVES.find((c) => c.id === id);
   if (!creative) notFound();
 
-  const latestMetrics = creative.history.at(-1);
-
   return (
     <div className="p-8 max-w-5xl mx-auto">
       {/* Breadcrumb */}
@@ -39,13 +37,19 @@ export default async function CreativePage({ params }: { params: Promise<{ id: s
           <h1 className="text-lg font-semibold text-white mb-1">{creative.headline}</h1>
           <p className="text-sm text-[#666]">{creative.campaign}</p>
         </div>
-        {creative.health_status !== "healthy" && (
+        {creative.health_status !== "healthy" ? (
           <Link
             href="/alerts"
-            className="px-4 py-2 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/15 border border-indigo-500/20 text-sm text-indigo-400 transition-colors"
+            className="px-4 py-2 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/15 border border-indigo-500/20 text-sm text-indigo-400 transition-colors flex items-center gap-1.5"
           >
+            <span className="material-symbols-outlined text-[16px]">auto_awesome</span>
             View AI replacements
           </Link>
+        ) : (
+          <span className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green-500/10 border border-green-500/20 text-sm text-green-400">
+            <span className="material-symbols-outlined text-[16px]">check_circle</span>
+            Performing well
+          </span>
         )}
       </div>
 

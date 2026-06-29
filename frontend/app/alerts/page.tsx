@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { CREATIVES } from "@/lib/mock-data";
 import HealthBadge from "@/components/HealthBadge";
 import ScoreRing from "@/components/ScoreRing";
@@ -24,6 +24,14 @@ const HOOK_COLOR: Record<string, string> = {
 export default function AlertsPage() {
   const fatigued = CREATIVES.filter((c) => c.health_status !== "healthy");
   const [expanded, setExpanded] = useState<string | null>(fatigued[0]?.id ?? null);
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const copyToClipboard = useCallback((text: string, key: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(key);
+      setTimeout(() => setCopied(null), 2000);
+    });
+  }, []);
 
   return (
     <div className="p-8 max-w-5xl mx-auto">
@@ -64,7 +72,9 @@ export default function AlertsPage() {
 
                 <div className="flex items-center gap-3 shrink-0">
                   <HealthBadge status={creative.health_status} />
-                  <span className={`material-symbols-outlined text-[20px] text-[#444] transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`}>arrow_circle_right</span>
+                  <span className="material-symbols-outlined text-[20px] text-[#444]">
+                    {isOpen ? "expand_less" : "expand_more"}
+                  </span>
                 </div>
               </button>
 
@@ -121,7 +131,11 @@ export default function AlertsPage() {
                         </span>
                       </div>
                       <div className="grid grid-cols-3 gap-3 items-stretch">
-                        {creative.variants.map((v, i) => (
+                        {creative.variants.map((v, i) => {
+                          const copyKey = `${creative.id}-${i}`;
+                          const isCopied = copied === copyKey;
+                          const copyText = `Headline: ${v.headline}\n\nBody: ${v.body}`;
+                          return (
                           <div key={i} className="bg-[#141414] rounded-lg border border-[#232323] p-4 hover:border-[#3a3a3a] transition-colors flex flex-col min-h-[260px]">
                             <div className="flex items-center justify-between mb-3">
                               <span className="text-[10px] text-[#444]">Variant {i + 1}</span>
@@ -132,11 +146,22 @@ export default function AlertsPage() {
                             <p className="text-xs text-white font-medium mb-2 leading-relaxed">{v.headline}</p>
                             <p className="text-xs text-[#666] leading-relaxed mb-3">{v.body}</p>
                             <p className="text-[11px] text-[#444] italic border-t border-[#232323] pt-3 flex-1">{v.rationale}</p>
-                            <button className="mt-4 w-full py-2 rounded-md bg-white/[0.04] hover:bg-white/[0.07] border border-[#2a2a2a] text-xs text-[#888] hover:text-white transition-colors">
-                              Copy to clipboard
+                            <button
+                              onClick={() => copyToClipboard(copyText, copyKey)}
+                              className={`mt-4 w-full py-2 rounded-md border text-xs transition-all duration-200 flex items-center justify-center gap-1.5 ${
+                                isCopied
+                                  ? "bg-green-500/10 border-green-500/30 text-green-400"
+                                  : "bg-white/[0.04] hover:bg-white/[0.07] border-[#2a2a2a] text-[#888] hover:text-white"
+                              }`}
+                            >
+                              {isCopied
+                                ? <><span className="material-symbols-outlined text-[14px]">check_circle</span> Copied!</>
+                                : <><span className="material-symbols-outlined text-[14px]">content_copy</span> Copy to clipboard</>
+                              }
                             </button>
                           </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                   )}
