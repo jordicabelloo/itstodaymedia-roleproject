@@ -41,10 +41,10 @@ export default function Sidebar() {
           <Link
             key={href} href={href}
             className={clsx(
-              "flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors font-medium",
+              "group flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-all font-medium",
               path === href
-                ? "bg-white/[0.07] text-white"
-                : "text-[#666] hover:text-[#ccc] hover:bg-white/[0.03]"
+                ? "bg-white/[0.06] text-white"
+                : "text-[#555] hover:text-[#999] hover:bg-white/[0.02]"
             )}
           >
             <span className="flex items-center gap-2.5">
@@ -52,7 +52,7 @@ export default function Sidebar() {
                 name={icon}
                 className={clsx(
                   "text-[18px]",
-                  path === href ? "text-white" : "text-[#555]"
+                  path === href ? "text-white" : "text-[#444] group-hover:text-[#777]"
                 )}
               />
               {label}

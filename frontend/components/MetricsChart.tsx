@@ -32,7 +32,7 @@ export default function MetricsChart({ data }: { data: DailyMetric[] }) {
       <LineChart data={normalized} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
         <XAxis dataKey="date" tick={{ fill: "#555", fontSize: 11 }} axisLine={false} tickLine={false} />
         <YAxis tick={{ fill: "#555", fontSize: 11 }} axisLine={false} tickLine={false} />
-        <Tooltip content={<CustomTooltip />} />
+        <Tooltip content={<CustomTooltip />} cursor={{ stroke: "rgba(255,255,255,0.06)", strokeWidth: 1 }} />
         <Legend
           iconType="circle" iconSize={6}
           wrapperStyle={{ fontSize: 11, color: "#666", paddingTop: 8 }}

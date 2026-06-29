@@ -91,7 +91,7 @@ export default function IntelligencePage() {
             <BarChart data={hookData} layout="vertical" margin={{ left: 60, right: 16, top: 0, bottom: 0 }}>
               <XAxis type="number" tick={{ fill: "#444", fontSize: 10 }} axisLine={false} tickLine={false} domain={[0, 100]} unit="%" />
               <YAxis type="category" dataKey="angle" tick={{ fill: "#888", fontSize: 11 }} axisLine={false} tickLine={false} width={60} />
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255,255,255,0.03)" }} />
               <Bar dataKey="win_rate" radius={[0, 4, 4, 0]}>
                 {hookData.map((entry) => (
                   <Cell key={entry.angle} fill={HOOK_COLORS[entry.angle]} fillOpacity={0.7} />
@@ -109,7 +109,7 @@ export default function IntelligencePage() {
             <BarChart data={lifespanData} margin={{ left: -20, right: 8, top: 0, bottom: 0 }}>
               <XAxis dataKey="week" tick={{ fill: "#555", fontSize: 11 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: "#444", fontSize: 10 }} axisLine={false} tickLine={false} unit="%" />
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255,255,255,0.03)" }} />
               <Bar dataKey="ctr" radius={[4, 4, 0, 0]}>
                 {lifespanData.map((entry, i) => (
                   <Cell key={i} fill={entry.ctr > 2.5 ? "#22c55e" : entry.ctr > 1.5 ? "#f59e0b" : "#ef4444"} fillOpacity={0.7} />
