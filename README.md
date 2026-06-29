@@ -15,7 +15,7 @@
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=flat-square&logo=next.js&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white)
-![Ollama](https://img.shields.io/badge/Ollama-qwen3:14b-333333?style=flat-square)
+![Claude](https://img.shields.io/badge/Claude-Sonnet_4.6-D97757?style=flat-square)
 ![Meta](https://img.shields.io/badge/Meta_Ads_API-v21-0866FF?style=flat-square&logo=meta&logoColor=white)
 ![Google Ads](https://img.shields.io/badge/Google_Ads_API-v17-4285F4?style=flat-square&logo=googleads&logoColor=white)
 ![Higgsfield](https://img.shields.io/badge/Higgsfield-API_ready-8B5CF6?style=flat-square)
