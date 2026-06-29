@@ -236,6 +236,18 @@ export const CREATIVES: Creative[] = [
   },
 ];
 
+export const ROI_STATS = {
+  wasted_spend_avoided_30d: 14820,
+  cpl_fatigued:  1.34,
+  cpl_refreshed: 0.87,
+  leads_generated_30d: 9_412,
+  leads_from_ai_variants: 3_840,
+  avg_detection_lag_days: 6.2,
+  spend_wasted_per_day_critical: 680,
+  refreshes_deployed_30d: 21,
+  cpl_improvement_pct: 35,
+};
+
 export const ACCOUNT_STATS = {
   total_spend_7d: 12370,
   avg_roas: 3.14,

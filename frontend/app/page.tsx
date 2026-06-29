@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { CREATIVES, ACCOUNT_STATS } from "@/lib/mock-data";
+import { CREATIVES, ACCOUNT_STATS, ROI_STATS } from "@/lib/mock-data";
 import HealthBadge from "@/components/HealthBadge";
 import ScoreRing from "@/components/ScoreRing";
 
@@ -9,6 +9,41 @@ const statCards = [
   { label: "Avg ROAS",     value: `${ACCOUNT_STATS.avg_roas}x`,                       sub: "last 7 days" },
   { label: "Critical Ads", value: String(ACCOUNT_STATS.critical_count),               sub: "need replacement", accent: "text-red-400" },
   { label: "Warning Ads",  value: String(ACCOUNT_STATS.warning_count),                sub: "approaching fatigue", accent: "text-amber-400" },
+];
+
+const roiCards = [
+  {
+    label: "Wasted spend avoided",
+    value: `$${ROI_STATS.wasted_spend_avoided_30d.toLocaleString()}`,
+    sub: "last 30 days, from early fatigue detection",
+    icon: "savings",
+    color: "text-green-400",
+    bg: "bg-green-500/[0.07] border-green-500/20",
+  },
+  {
+    label: "CPL: AI refreshed vs fatigued",
+    value: `$${ROI_STATS.cpl_refreshed} vs $${ROI_STATS.cpl_fatigued}`,
+    sub: `${ROI_STATS.cpl_improvement_pct}% lower cost per lead with AI variants`,
+    icon: "trending_down",
+    color: "text-indigo-400",
+    bg: "bg-indigo-500/[0.07] border-indigo-500/20",
+  },
+  {
+    label: "Leads from AI variants",
+    value: `${ROI_STATS.leads_from_ai_variants.toLocaleString()}`,
+    sub: `of ${ROI_STATS.leads_generated_30d.toLocaleString()} total leads this month`,
+    icon: "group_add",
+    color: "text-amber-400",
+    bg: "bg-amber-500/[0.07] border-amber-500/20",
+  },
+  {
+    label: "Refreshes deployed",
+    value: `${ROI_STATS.refreshes_deployed_30d}`,
+    sub: `Avg detection lag: ${ROI_STATS.avg_detection_lag_days} days before replacement`,
+    icon: "refresh",
+    color: "text-blue-400",
+    bg: "bg-blue-500/[0.07] border-blue-500/20",
+  },
 ];
 
 const PLATFORM_COLOR: Record<string, string> = {
@@ -47,6 +82,23 @@ export default function Dashboard() {
             <p className="text-[#444] text-xs mt-1">{sub}</p>
           </div>
         ))}
+      </div>
+
+      {/* ROI panel */}
+      <div className="mb-6">
+        <p className="text-[11px] font-medium text-[#444] uppercase tracking-wider mb-3">ROI impact — last 30 days</p>
+        <div className="grid grid-cols-4 gap-3">
+          {roiCards.map(({ label, value, sub, icon, color, bg }) => (
+            <div key={label} className={`border rounded-xl p-4 ${bg}`}>
+              <div className="flex items-center gap-2 mb-2">
+                <span className={`material-symbols-outlined text-[16px] ${color}`}>{icon}</span>
+                <p className="text-[11px] text-[#666]">{label}</p>
+              </div>
+              <p className={`text-lg font-bold mb-1 ${color}`}>{value}</p>
+              <p className="text-[11px] text-[#444] leading-relaxed">{sub}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Fatigue alerts banner */}
