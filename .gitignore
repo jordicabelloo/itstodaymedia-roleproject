@@ -26,3 +26,4 @@ Thumbs.db
 *.pem
 credentials.json
 token.json
+.env.local

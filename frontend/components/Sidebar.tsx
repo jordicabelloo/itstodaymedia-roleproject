@@ -12,6 +12,7 @@ const NAV = [
   { href: "/",          label: "Dashboard", icon: "grid_view" },
   { href: "/alerts",    label: "Alerts",    icon: "bolt",      badge: alertBadge },
   { href: "/campaigns", label: "Campaigns", icon: "bar_chart" },
+  { href: "/generate",  label: "Generate",  icon: "auto_awesome" },
 ];
 
 function Icon({ name, className }: { name: string; className?: string }) {
