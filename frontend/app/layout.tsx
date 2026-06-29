@@ -3,8 +3,11 @@ import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
-  title: "AdPulse — Creative Intelligence",
+  title: "AdPulse — Creative Intelligence for It's Today Media",
   description: "Detect ad fatigue before it kills your ROAS",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

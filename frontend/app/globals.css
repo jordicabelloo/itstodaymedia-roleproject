@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,6 +14,9 @@
   --warning: #f59e0b;
   --healthy: #22c55e;
   --accent: #818cf8;
+  --itm-navy: #2d3a4a;
+  --itm-teal: #4dd0c4;
+  --itm-orange: #e05c3a;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,7 +24,7 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 14px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;

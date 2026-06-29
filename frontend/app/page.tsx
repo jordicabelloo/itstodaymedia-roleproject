@@ -24,10 +24,20 @@ export default function Dashboard() {
       {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="text-xl font-semibold text-white">Dashboard</h1>
-          <p className="text-[#555] text-sm mt-0.5">Last synced: Jun 22, 2026 — 23:41 UTC</p>
+          <div className="flex items-center gap-3 mb-1">
+            <h1 className="text-xl font-bold text-white tracking-tight">Dashboard</h1>
+            <span className="flex items-center gap-1.5 text-[11px] text-[#555] border border-[#2a2a2a] rounded-full px-2.5 py-1">
+              <svg width="14" height="14" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style={{ display: "inline" }}>
+                <rect width="100" height="100" rx="8" fill="#2d3a4a"/>
+                <text x="50" y="60" textAnchor="middle" fontFamily="Georgia,serif" fontSize="52" fontWeight="700" fill="#fff">T</text>
+                <circle cx="67" cy="73" r="5" fill="#fff"/>
+              </svg>
+              <span className="font-semibold text-[#888]">It's Today Media</span>
+            </span>
+          </div>
+          <p className="text-[#555] text-sm">Last synced: Jun 22, 2026 — 23:41 UTC</p>
         </div>
-        <button className="px-4 py-2 rounded-lg bg-white/[0.06] hover:bg-white/[0.09] border border-[#2a2a2a] text-sm text-[#ccc] transition-colors">
+        <button className="px-4 py-2 rounded-lg bg-white/[0.06] hover:bg-white/[0.09] border border-[#2a2a2a] text-sm text-[#ccc] transition-colors font-medium">
           Sync now
         </button>
       </div>
