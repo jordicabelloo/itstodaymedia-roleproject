@@ -64,7 +64,7 @@ export default function AlertsPage() {
 
                 <div className="flex items-center gap-3 shrink-0">
                   <HealthBadge status={creative.health_status} />
-                  <span className={`text-[#555] text-sm transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`}>→</span>
+                  <span className={`material-symbols-outlined text-[20px] text-[#444] transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`}>arrow_circle_right</span>
                 </div>
               </button>
 

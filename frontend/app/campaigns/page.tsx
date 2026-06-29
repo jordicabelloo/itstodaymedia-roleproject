@@ -60,7 +60,7 @@ export default function CampaignsPage() {
                       <span className="text-xs text-[#555]">CTR {(c.ctr_7d * 100).toFixed(1)}%</span>
                       <span className="text-xs text-[#555]">ROAS {c.roas_7d}x</span>
                       <HealthBadge status={c.health_status} />
-                      <span className="text-[#333] group-hover:text-[#666] text-xs">→</span>
+                      <span className="material-symbols-outlined text-[18px] text-[#333] group-hover:text-[#888] transition-colors">arrow_circle_right</span>
                     </div>
                   </Link>
                 ))}

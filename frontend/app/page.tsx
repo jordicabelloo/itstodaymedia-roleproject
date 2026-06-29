@@ -117,7 +117,7 @@ export default function Dashboard() {
               {/* Status */}
               <div className="shrink-0 flex items-center gap-3">
                 <HealthBadge status={creative.health_status} />
-                <span className="text-[#333] group-hover:text-[#666] transition-colors text-sm">→</span>
+                <span className="material-symbols-outlined text-[20px] text-[#333] group-hover:text-[#888] transition-colors">arrow_circle_right</span>
               </div>
             </Link>
           ))}
