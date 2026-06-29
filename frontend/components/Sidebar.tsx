@@ -6,10 +6,14 @@ import Image from "next/image";
 import clsx from "clsx";
 
 const NAV = [
-  { href: "/", label: "Dashboard", icon: "▦" },
-  { href: "/alerts", label: "Alerts", icon: "⚡", badge: 2 },
-  { href: "/campaigns", label: "Campaigns", icon: "◈" },
+  { href: "/",          label: "Dashboard", icon: "grid_view" },
+  { href: "/alerts",    label: "Alerts",    icon: "bolt",      badge: 2 },
+  { href: "/campaigns", label: "Campaigns", icon: "bar_chart" },
 ];
+
+function Icon({ name, className }: { name: string; className?: string }) {
+  return <span className={clsx("material-symbols-outlined", className)}>{name}</span>;
+}
 
 export default function Sidebar() {
   const path = usePathname();
@@ -17,7 +21,7 @@ export default function Sidebar() {
     <aside className="w-56 shrink-0 border-r border-[#2a2a2a] flex flex-col h-screen sticky top-0">
       {/* Brand */}
       <div className="px-4 py-4 border-b border-[#2a2a2a]">
-        <div className="flex items-center gap-3 mb-3">
+        <div className="flex items-center gap-3">
           <Image src="/itm-logo.png" alt="It's Today Media" width={36} height={36} className="rounded-md" />
           <span className="text-white font-semibold text-sm tracking-tight">AdPulse</span>
           <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#4dd0c4]/10 text-[#4dd0c4] border border-[#4dd0c4]/20 font-bold tracking-wider">BETA</span>
@@ -37,7 +41,13 @@ export default function Sidebar() {
             )}
           >
             <span className="flex items-center gap-2.5">
-              <span className="text-[15px]">{icon}</span>
+              <Icon
+                name={icon}
+                className={clsx(
+                  "text-[18px]",
+                  path === href ? "text-white" : "text-[#555]"
+                )}
+              />
               {label}
             </span>
             {badge && (
