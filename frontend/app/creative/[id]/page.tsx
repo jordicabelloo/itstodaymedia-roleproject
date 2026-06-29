@@ -39,7 +39,7 @@ export default async function CreativePage({ params }: { params: Promise<{ id: s
         </div>
         {creative.health_status !== "healthy" ? (
           <Link
-            href="/alerts"
+            href={`/alerts?open=${creative.id}`}
             className="px-4 py-2 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/15 border border-indigo-500/20 text-sm text-indigo-400 transition-colors flex items-center gap-1.5"
           >
             <span className="material-symbols-outlined text-[16px]">auto_awesome</span>
