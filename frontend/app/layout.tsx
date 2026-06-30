@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "AdPulse — Creative Intelligence for It's Today Media",
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex min-h-screen bg-[#0f0f0f]">
         <Sidebar />
         <main className="flex-1 overflow-auto">{children}</main>
+        <Analytics />
       </body>
     </html>
   );
